@@ -14,7 +14,10 @@ def index():
 def index_post():
     conn = sqlite3.connect('blogs.db')
     c = conn.cursor()
-    c.execute("""CREATE TABLE bloggers (first text, last text, post text)""")
+    try:
+        c.execute("""CREATE TABLE bloggers (first text, last text, post text)""")
+    except sqlite3.OperationalError:
+        pass
     firstname_text = request.form['firstname']
     lastname_text = request.form['lastname']
     post_text = request.form['post_text']
